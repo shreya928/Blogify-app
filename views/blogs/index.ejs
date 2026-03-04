@@ -1,0 +1,120 @@
+<% layout('layout') %>
+
+<style>
+  body {
+    font-family: "Plus Jakarta Sans", sans-serif !important;
+    background: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* PAGE HEADING */
+  h1.page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #222;
+  }
+
+  /* CARD */
+  .card-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card {
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all .3s ease;
+    background: #fff;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  }
+
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.15);
+  }
+
+  /* IMAGE */
+  .image-container {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+  }
+
+  .card-img-top {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.4s ease;
+  }
+
+  .card:hover .card-img-top {
+    transform: scale(1.07);
+  }
+
+  /* CARD BODY */
+  .card-body {
+    padding: 1.3rem 1rem;
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: .6rem;
+    color: #111;
+  }
+
+  .card-text {
+    color: #666;
+    height: 50px;
+    overflow: hidden;
+  }
+
+  /* BUTTON */
+  .btn-primary {
+    background: #222;
+    border: none;
+    padding: 10px;
+    font-weight: 500;
+    border-radius: 8px;
+  }
+
+  .btn-primary:hover {
+    background: #444;
+  }
+
+  /* GRID */
+  .row.g-4 > .col {
+    display: flex;
+  }
+
+</style>
+
+<div class="container mt-4">
+    <h1 class="page-title">Read. Explore. Evolve.</h1>
+    <div class="row g-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+        <% for(let blog of blogs){ %>
+            <div class="col">
+                <div class="card h-100">
+                  <div class="image-container">
+                    <img src="<%= blog.image.url %>" class="card-img-top" alt="blog_img" />
+                  </div>
+                  <div class="card-body">
+                      <h5 class="card-title"><%= blog.title %></h5>
+                      <p class="card-text">
+                          <%= blog.content %>
+                      </p>
+                      <a href="/blogs/<%= blog._id %>" class="btn btn-primary w-100">
+                          View Blog
+                      </a>
+                  </div>
+                </div>
+            </div>
+        <% } %>
+    </div>
+</div>

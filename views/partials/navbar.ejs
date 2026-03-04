@@ -1,0 +1,55 @@
+<style>
+
+.search{
+  margin-left: 22rem;
+}
+.submit{
+  border-radius: 5px;
+}
+
+</style>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm py-3">
+  <div class="container">
+    <a class="navbar-brand fw-bold fs-4 d-flex align-items-center" href="/">
+      <i class="fa-duotone fa-solid fa-hashtag"></i>  Blogify
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="search">
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search blogs" aria-label="Search"/>
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav gap-2">
+
+        <li class="nav-item">
+          <a class="nav-link px-3" href="/blogs">Blogs</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link px-3" href="/blogs/new">New Blog</a>
+        </li>
+        <%if(!currUser){%>
+        <li class="nav-item">
+          <a class="btn btn-outline-light px-3" href="/login">
+            Login
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="btn btn-primary px-3 ms-2" href="/signup">
+            Signup
+          </a>
+        </li>
+        <%}%>
+         <% if (currUser) { %>
+                    <a class="btn btn-danger rounded-pill px-3" href="/logout">Log Out</a>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>

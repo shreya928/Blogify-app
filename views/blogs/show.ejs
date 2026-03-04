@@ -1,0 +1,125 @@
+<% layout('layout') %>
+
+    <div class="container py-4">
+
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h1 class="fw-bold mb-0">
+                <%= blog.title %>
+            </h1>
+
+            <% if(currUser && blog.owner._id.equals(currUser._id)) { %>
+                <div class="d-flex gap-2">
+                    <a class="btn btn-warning btn-sm" href="/blogs/<%= blog._id %>/edit">
+                        <i class="fa-solid fa-pen"></i> Edit
+                    </a>
+
+                    <form action="/blogs/<%= blog._id %>?_method=DELETE" method="POST">
+                        <button class="btn btn-danger btn-sm">
+                            <i class="fa-solid fa-trash"></i> Delete
+                        </button>
+                    </form>
+                </div>
+           <% } %>
+        </div>
+
+        <small class="text-muted">
+            <i class="fa-solid fa-user"></i> @<%= blog.owner.username %> •
+                <%= blog.createdAt.toLocaleDateString() %> •
+                    <%= blog.createdAt.toLocaleTimeString() %>
+        </small>
+
+        <% if(blog.image) { %>
+            <div class="my-3">
+                <img src="<%= blog.image.url %>" class="img-fluid rounded shadow-lg"
+                    style="max-height:450px;object-fit:cover;">
+            </div>
+            <% } %>
+
+                <p class="fs-5 lh-lg mt-4">
+                    <%= blog.content %>
+                </p>
+                <hr class="my-5">
+                <h3 class="fw-semibold mb-3">Comments</h3>
+                <% if(blog.comments.length===0){ %>
+                    <p class="text-muted">No comments yet. Be the first!</p>
+                    <% } %>
+                        <% for (let comment of blog.comments) { %>
+                            <div class="card mb-3 border-0 shadow-sm">
+                                <div class="card-body">
+                                    <strong>@<%= comment.author.username %></strong>
+
+                                    <div class="mb-2">
+                                        <% for (let i=0; i < comment.rating; i++) { %>
+                                            <i class="fa-solid fa-star text-warning"></i>
+                                            <% } %>
+                                                <% for (let i=comment.rating; i < 5; i++) { %>
+                                                    <i class="fa-regular fa-star text-secondary"></i>
+                                                    <% } %>
+                                    </div>
+
+                                    <p class="mb-1 fs-6 text-secondary">
+                                        <%= comment.text %>
+                                    </p>
+                                    <% if(currUser && comment.author._id.equals(currUser._id)) { %>
+                                        <form action="/blogs/<%= blog._id %>/comments/<%= comment._id %>?_method=DELETE"
+                                            method="POST">
+                                            <button class="btn btn-sm btn-outline-danger">
+                                                <i class="fa-solid fa-xmark"></i> Remove
+                                            </button>
+                                        </form>
+                                        <% } %>
+                                </div>
+                            </div>
+                            <% } %>
+
+                                <hr class="my-5">
+
+                                <h4 class="fw-bold">Add a Comment</h4>
+
+                                <form action="/blogs/<%= blog._id %>/comments" method="POST"
+                                    class="bg-light p-4 rounded shadow-sm">
+
+                                    <label class="form-label fw-bold">Rating:</label><br>
+
+                                    <div class="rating mb-3">
+                                        <% for(let i=5;i>=1;i--){ %>
+                                            <input type="radio" id="star<%=i%>" name="comment[rating]" value="<%=i%>">
+                                            <label for="star<%=i%>">★</label>
+                                            <% } %>
+                                    </div>
+
+                                    <textarea name="comment[text]" class="form-control mb-3"
+                                        placeholder="Write something..." rows="3"></textarea>
+
+                                    <button class="btn btn-primary">
+                                        <i class="fa-solid fa-comment"></i> Add Comment
+                                    </button>
+                                </form>
+
+    </div>
+
+
+    <style>
+        .rating {
+            direction: rtl;
+            unicode-bidi: bidi-override;
+            font-size: 2rem;
+            display: inline-flex;
+            gap: .3rem;
+        }
+
+        .rating input {
+            display: none;
+        }
+
+        .rating label {
+            cursor: pointer;
+            color: #ddd;
+        }
+
+        .rating input:checked~label,
+        .rating label:hover,
+        .rating label:hover~label {
+            color: #f5b301;
+        }
+    </style>

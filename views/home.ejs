@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Blogify — Home</title>
+  <style>
+    /* Reset */
+    * { box-sizing:border-box;margin:0;padding:0 }
+    html, body {
+      font-family: "Plus Jakarta Sans", sans-serif;
+      height: 100%;
+      background:#0f0f0f;
+      color:#f2f2f2;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      padding:2rem;
+    }
+
+    /* Animated gradient background */
+    .bg-animated{
+      position:fixed;inset:0;z-index:-2;overflow:hidden;
+      background: radial-gradient(600px 400px at 10% 20%, rgba(70,60,220,0.12), transparent 10%),
+                  radial-gradient(500px 350px at 90% 80%, rgba(0,200,170,0.08), transparent 10%),
+                  linear-gradient(135deg,#071026 0%, #071026 50%, #0b0f13 100%);
+      animation:shift 12s ease-in-out infinite alternate;
+      filter:blur(18px) saturate(120%);
+    }
+    @keyframes shift{
+      0%{transform:translate3d(0,0,0) scale(1)}
+      100%{transform:translate3d(-6%,4%,0) scale(1.08)}
+    }
+
+    /* Floating SVG blobs */
+    .blob{position:fixed;z-index:-1;opacity:0.08;will-change:transform;mix-blend-mode:screen;}
+    .blob.one{width:700px;left:-120px;top:-80px;animation:float1 14s ease-in-out infinite}
+    .blob.two{width:600px;right:-120px;bottom:-80px;animation:float2 18s ease-in-out infinite}
+    @keyframes float1{0%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(18px) rotate(6deg)}100%{transform:translateY(0) rotate(0deg)}}
+    @keyframes float2{0%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-22px) rotate(-6deg)}100%{transform:translateY(0) rotate(0deg)}}
+
+    /* Welcome heading outside card */
+    .welcome {
+      font-size:clamp(36px,6vw,64px);
+      font-weight:700;
+      text-align:center;
+      margin-bottom:2rem;
+      background: linear-gradient(90deg,#6b46ff,#00e5a8);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* Card */
+    .card{
+      width:100%; max-width:420px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.04);backdrop-filter: blur(8px);
+      border-radius:16px;padding:36px;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      gap:24px;
+      box-shadow:0 10px 40px rgba(3,6,12,0.6);
+      transform:translateY(0);transition:transform .45s cubic-bezier(.2,.9,.3,1);
+    }
+    .card:hover{transform:translateY(-6px)}
+
+    .hero p{
+      color:rgba(230,238,248,0.78);font-size:16px;text-align:center;
+    }
+
+    /* CTA buttons vertical */
+    .cta-row{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      width:100%;
+    }
+
+    .btn{
+      display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 18px;border-radius:12px;font-weight:600;text-decoration:none;
+      cursor:pointer;border:1px solid transparent;transition:all .22s ease;user-select:none;
+      width:100%;
+    }
+    .btn.primary{background:#363535;color:#fff;border:none;}
+    .btn.ghost{background:rgb(51, 51, 52);border:1px solid #333;color:#fff;}
+    .btn.index{background:#2b2b2b;color:#fff;}
+    .btn:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(2,6,23,0.45)}
+
+    @media (max-width:420px){
+      .card{padding:20px}
+    }
+    .text{
+        font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-animated" aria-hidden="true"></div>
+
+  <!-- SVG blobs for depth -->
+  <svg class="blob one" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g transform="translate(300,300)">
+      <path d="M120,-146C154,-118,175,-75,181,-29C187,17,178,66,152,101C126,137,84,158,40,177C-4,197,-52,214,-89,198C-125,182,-151,134,-173,86C-195,38,-213,-10,-197,-48C-181,-86,-131,-114,-86,-138C-41,-162,-20,-182,20,-197C60,-213,120,-173,120,-146Z" fill="#6b46ff"/>
+    </g>
+  </svg>
+
+  <svg class="blob two" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g transform="translate(300,300)">
+      <path d="M98,-139C131,-110,166,-86,180,-52C194,-17,188,24,165,62C142,101,102,138,58,162C14,186,-36,197,-78,178C-120,159,-153,110,-175,64C-197,18,-209,-24,-195,-64C-181,-104,-141,-143,-96,-169C-51,-195,-25,-208,7,-216C39,-224,78,-168,98,-139Z" fill="#00e5a8"/>
+    </g>
+  </svg>
+
+  <h1 class="welcome">Welcome to #Blogify</h1>
+  <i class="text">No ads. No clutter. Just you and your words.</i>
+  <br/><br/>
+  <main class="card" role="main">
+    <section class="hero">
+      <div class="cta-row">
+        <a class="btn primary" href="/login" title="Login or Sign up">
+          Login 
+        </a>
+        <a class="btn primary" href="/signup" title="Login or Sign up">
+          Sign up
+        </a>
+        <a class="btn ghost" href="/blogs" title="Open index page">
+          View Blogs
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded',()=>{
+      document.querySelectorAll('.btn').forEach((b,i)=>{
+        b.style.opacity=0; b.style.transform='translateY(8px)';
+        setTimeout(()=>{b.style.transition='all .35s cubic-bezier(.2,.9,.3,1)'; b.style.opacity=1; b.style.transform='translateY(0)';},120*i)
+      })
+    })
+  </script>
+</body>
+</html>
