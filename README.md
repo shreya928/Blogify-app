@@ -3,6 +3,8 @@
 Blogify is a full-stack blogging platform where users can create, edit, and manage blog posts.  
 It is built using **Node.js, Express.js, MongoDB, and EJS**, following the MVC architecture for better code organization.
 
+## Live Demo
+[Blogify Live](https://blogify-live.onrender.com/)
 ---
 
 # 🚀 Features
